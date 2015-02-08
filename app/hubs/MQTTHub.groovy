@@ -17,7 +17,7 @@ public class MQTTHub extends MQTTDevice implements Hub {
 
 
   @Override
-	public void update(Message message) {
+	void update(Message message) {
 
     println(JsonOutput.toJson(message))
 
