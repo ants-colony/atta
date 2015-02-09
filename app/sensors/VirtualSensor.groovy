@@ -13,6 +13,8 @@ class VirtualSensor implements Sensor {
   String sensorId = null
   ExecutorService environment
 
+  Closure onMessage
+
   List<Hub> observers = new LinkedList<Hub>()
 
 
@@ -43,6 +45,11 @@ class VirtualSensor implements Sensor {
       }
     })
 
+  }
+
+  @Override
+  void update(Message message) {
+    this.onMessage(this, message)
   }
 }
 

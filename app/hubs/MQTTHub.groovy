@@ -84,4 +84,14 @@ public class MQTTHub extends MQTTDevice implements Hub {
     this.publicationTopic = topic
     return this
   }
+
+  @Override
+  void notifySensors(Message message) {
+    //TODO:
+  }
+
+  @Override
+  void notifySensor(String id, Message message) {
+    //TODO:
+  }
 }

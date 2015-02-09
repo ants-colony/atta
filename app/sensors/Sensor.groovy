@@ -11,4 +11,7 @@ interface Sensor {
   Sensor addObserver(Hub hub)
   void notifyObservers(Message message)
   void start (Integer every)
+
+  // this is an observer
+  void update (Message message)
 }

@@ -36,6 +36,10 @@ class TemperatureSensor extends VirtualSensor implements temperature {
     return msg
 
   }
+
+  Closure onMessage = { TemperatureSensor self, Message message ->
+
+  }
 }
 
 
@@ -46,6 +50,7 @@ MQTTHub hub001 = new MQTTHub(
 
 ).publicationTopic("sensors").start({ MQTTHub self ->
 
+  //self.sensors.get(0).update(new Message(content: "Yo"))
 
   self.observe(
       new TemperatureSensor(sensorId: self.id() + "|000", environment: env).start(5000)
