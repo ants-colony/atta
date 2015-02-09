@@ -22,7 +22,7 @@ interface Hub {
   String publicationTopic()
   Hub publicationTopic(String topic)
 
-  void notifySensors(Message message)
-  void notifySensor(String id, Message message)
+  Hub notifySensors(Message message)
+  Hub notifySensor(String id, Message message)
 
 }

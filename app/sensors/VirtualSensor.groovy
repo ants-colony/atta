@@ -28,7 +28,7 @@ class VirtualSensor implements Sensor {
   }
 
   @Override
-  void notifyObservers(Message message) {
+  Sensor notifyObservers(Message message) {
     this.observers.each { observer ->
       message.to = observer.id()
       observer.update(message)
@@ -36,7 +36,7 @@ class VirtualSensor implements Sensor {
   }
 
   @Override
-  void start (Integer every) {
+  Sensor start (Integer every) {
     this.working = true
     this.environment.execute((Runnable){
       while (this.working) {

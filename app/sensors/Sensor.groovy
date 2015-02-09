@@ -9,8 +9,8 @@ import hubs.Hub
 interface Sensor {
   //List<Hub> observers
   Sensor addObserver(Hub hub)
-  void notifyObservers(Message message)
-  void start (Integer every)
+  Sensor notifyObservers(Message message)
+  Sensor start (Integer every)
 
   // this is an observer
   void update (Message message)
