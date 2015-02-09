@@ -4,7 +4,8 @@ import core.Callbacks;
 import core.MQTTDevice
 import core.Message
 import groovy.json.JsonOutput;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.IMqttToken
+import sensors.Sensor;
 
 /**
  * Created by k33g_org on 08/02/15.
@@ -12,14 +13,16 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 public class MQTTHub extends MQTTDevice implements Hub {
   /* listen to sensors */
   /* publish to one topic */
+  /* a hub is an observer */
 
   private String publicationTopic
 
+  public List<Sensor> sensors = new LinkedList<Sensor>()
 
   @Override
 	void update(Message message) {
 
-    println(JsonOutput.toJson(message))
+    //println(JsonOutput.toJson(message))
 
     this.topic(this.publicationTopic)
         .content(JsonOutput.toJson(message))
@@ -28,6 +31,20 @@ public class MQTTHub extends MQTTDevice implements Hub {
           failure: { IMqttToken t, Throwable e -> null} /* TODO: to be completed */
     ))
 	}
+
+  @Override
+  Hub observe(Sensor sensor) {
+    sensor.addObserver(this)
+    this.sensors.add(sensor)
+    return this
+  }
+
+  @Override
+  Hub add(Sensor sensor) {
+    this.sensors.add(sensor)
+    return this
+  }
+/*TODO stop observing*/
 
   @Override
   String id() {

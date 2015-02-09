@@ -6,6 +6,9 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions
 import sensors.VirtualSensor
 import sensors.temperature
 
+import groovy.json.JsonOutput;
+
+
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 /**
@@ -28,6 +31,8 @@ class TemperatureSensor extends VirtualSensor implements temperature {
         "time": new Date()
     ])
 
+    println(JsonOutput.toJson(msg))
+
     return msg
 
   }
@@ -41,6 +46,10 @@ MQTTHub hub001 = new MQTTHub(
 
 ).publicationTopic("sensors").start({ MQTTHub self ->
 
+
+  self.observe(
+      new TemperatureSensor(sensorId: self.id() + "|000", environment: env).start(5000)
+  )
 
   new TemperatureSensor(sensorId: self.id() + "|001", environment: env).addObserver(self).start(5000)
 

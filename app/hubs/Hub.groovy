@@ -1,6 +1,7 @@
 package hubs
 
 import core.Message
+import sensors.Sensor
 
 /**
  * Created by k33g_org on 08/02/15.
@@ -8,6 +9,12 @@ import core.Message
 interface Hub {
   // this is an observer
   void update (Message message)
+
+  //List<Sensor> sensors
+
+  Hub observe (Sensor sensor)
+  Hub add (Sensor sensor)
+
   String id()
   Hub start (String publicationTopic, Closure whenStarted)
   Hub start (Closure whenStarted)
