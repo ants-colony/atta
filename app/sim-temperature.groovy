@@ -24,6 +24,7 @@ class TemperatureSensor extends VirtualSensor implements temperature {
     )
     msg.add([
         "temperature":this.getTemperature(),
+        "unity": this.temperatureUnity,
         "time": new Date()
     ])
 
@@ -41,16 +42,16 @@ MQTTHub hub001 = new MQTTHub(
 ).publicationTopic("sensors").start({ MQTTHub self ->
 
 
-  new TemperatureSensor(sensorId: self.id() + "|001", environment: env).addObserver(self).start(500)
+  new TemperatureSensor(sensorId: self.id() + "|001", environment: env).addObserver(self).start(5000)
 
-  new TemperatureSensor(sensorId: self.id() + "|002",environment: env).addObserver(self).start(500)
+  new TemperatureSensor(sensorId: self.id() + "|002",environment: env).addObserver(self).start(5000)
 
   100.times { i ->
 
     new TemperatureSensor(
         sensorId: self.id() + "|$i",
         environment: env
-    ).addObserver(self).start(1000)
+    ).addObserver(self).start(5000)
   }
 
 })
@@ -61,16 +62,16 @@ MQTTHub hub002 = new MQTTHub(
     connectOptions: connectOptions
 ).publicationTopic("sensors").start({ MQTTHub self ->
 
-  new TemperatureSensor(sensorId: self.id() + "|001", environment: env).addObserver(self).start(300)
+  new TemperatureSensor(sensorId: self.id() + "|001", environment: env).addObserver(self).start(5000)
 
-  new TemperatureSensor(sensorId: self.id() + "|002",environment: env).addObserver(self).start(300)
+  new TemperatureSensor(sensorId: self.id() + "|002",environment: env).addObserver(self).start(5000)
 
   100.times { i ->
 
     new TemperatureSensor(
         sensorId: self.id() + "|$i",
         environment: env
-    ).addObserver(self).start(1000)
+    ).addObserver(self).start(5000)
   }
 })
 
@@ -85,7 +86,7 @@ MQTTHub hub003 = new MQTTHub(
     new TemperatureSensor(
         sensorId: self.id() + "|$i",
         environment: env
-    ).addObserver(self).start(1000)
+    ).addObserver(self).start(5000)
   }
 
 })
